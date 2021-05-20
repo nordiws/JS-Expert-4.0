@@ -24,8 +24,8 @@ export default class SocketBuilder {
         })
 
         socket.on('connection', () => console.log('connected!'))
-        socket.on(constants.events.USER_CONNECTED, this.onUserConnected)
-        socket.on(constants.events.USER_DISCONNECTED, this.onUserDisconnected)
+        socket.on(constants.event.USER_CONNECTED, this.onUserConnected)
+        socket.on(constants.event.USER_DISCONNECTED, this.onUserDisconnected)
 
         return socket
     }
