@@ -4,17 +4,24 @@ import SocketBuilder from "../../../_shared/socketBuilder.js";
 export default class RoomSocketBuilder extends SocketBuilder {
     constructor({ socketUrl, namespace }) {
         super({ socketUrl, namespace })
-        this.onRoomUpdate = () => { }
+        this.onRoomUpdated = () => { }
+        this.onUserProfileUpgrade = () => { }
     }
 
     setOnRoomUpdated(fn) {
-        this.onRoomUpdate = fn
+        this.onRoomUpdated = fn
+        return this
+    }
+
+    setOnUserProfileUpgrade(fn) {
+        this.onUserProfileUpgrade = fn
         return this
     }
 
     build() {
         const socket = super.build()
-        socket.on(constants.event.LOBBY_UPDATED, this.onRoomUpdate)
+        socket.on(constants.event.LOBBY_UPDATED, this.onRoomUpdated)
+        socket.on(constants.event.UPGRADE_USER_PERMISSION, this.onUserProfileUpgrade)
         return socket
     }
 }
