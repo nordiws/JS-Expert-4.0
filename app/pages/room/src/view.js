@@ -5,6 +5,9 @@ const imgUser = document.getElementById('imgUser')
 const roomTopic = document.getElementById('pTopic')
 const gridSpeakers = document.getElementById('gridSpeakers')
 const gridAttendees = document.getElementById('gridAttendees')
+const btnClipBoard = document.getElementById('btnClipBoard')
+const btnMicrophone = document.getElementById('btnMicrophone')
+const btnClap = document.getElementById('btnClap')
 
 export default class View {
     static updateUserImage({ img, username }) {
@@ -49,5 +52,40 @@ export default class View {
         }
 
         baseElement.innerHTML += htmlTemplate
+    }
+
+    static _createAudioElement({ muted = true, srcObject }) {
+        const audio = document.createElement('audio')
+        audio.muted = muted
+        audio.srcObject = srcObject
+        audio.addEventListener('loadedmetadata', async () => {
+            try {
+                await audio.play()
+            } catch (e) {
+                console.log('erro to play', e);
+            }
+        })
+        return audio
+    }
+
+    static renderAudioElement({ callerId, stream, isCurrentId }) {
+        View._createAudioElement({
+            muted: isCurrentId,
+            srcObject: stream,
+        })
+    }
+
+    static showUserFeatures(isSpeaker) {
+        // attendee
+        if (!isSpeaker) {
+            btnMicrophone.classList.add('hidden')
+            btnClipBoard.classList.add('hidden')
+            btnClap.classList.remove('hidden')
+            return
+        }
+        // speaker
+        btnClap.classList.add('hidden')
+        btnMicrophone.classList.remove('hidden')
+        btnClipBoard.classList.remove('hidden')
     }
 }
