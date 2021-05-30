@@ -5,15 +5,16 @@ import RoomController from "./controller.js"
 import RoomService from "./service.js"
 import RoomSocketBuilder from "./util/roomSocketBuilder.js"
 import View from "./view.js"
+import UserDB from '../../_shared/userDB.js'
+
+const user = UserDB.get()
+if (!Object.keys(user).length) {
+    View.redirectToLogin()
+}
 
 const urlParams = new URLSearchParams(window.location.search)
 const keys = ['id', 'topic']
 const urlData = keys.map((key) => [key, urlParams.get(key)])
-
-const user = {
-    img: "https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-128.png",
-    username: "nordiws " + Date.now()
-}
 
 const roomInfo = {
     room: { ...Object.fromEntries(urlData) },
