@@ -6,6 +6,7 @@ export default class RoomSocketBuilder extends SocketBuilder {
         super({ socketUrl, namespace })
         this.onRoomUpdated = () => { }
         this.onUserProfileUpgrade = () => { }
+        this.onSpeakRequested = () => { }
     }
 
     setOnRoomUpdated(fn) {
@@ -18,10 +19,16 @@ export default class RoomSocketBuilder extends SocketBuilder {
         return this
     }
 
+    setOnSpeakRequested(fn) {
+        this.onSpeakRequested = fn
+        return this
+    }
+
     build() {
         const socket = super.build()
         socket.on(constants.event.LOBBY_UPDATED, this.onRoomUpdated)
         socket.on(constants.event.UPGRADE_USER_PERMISSION, this.onUserProfileUpgrade)
+        socket.on(constants.event.SPEAK_REQUEST, this.onSpeakRequested)
         return socket
     }
 }
