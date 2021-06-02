@@ -1,11 +1,20 @@
 export const constants = {
-    socketUrl: 'http://localhost:3000',
+    //socketUrl: 'http://localhost:3000',
+    socketUrl: 'club-socket-server.herokuapp.com',
     socketNamespaces: {
         room: 'room',
         lobby: 'lobby'
     },
     peerConfig: Object.values({
-        id: undefined
+        id: undefined,
+        config: {
+            host: "club-peerjs-server.herokuapp.com",
+            secure: true,
+            path: '/'
+            /* port: 4000,
+            host: 'localhost',
+            path: '/' */
+        }
     }),
     pages: {
         lobby: '/pages/lobby',

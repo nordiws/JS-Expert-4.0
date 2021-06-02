@@ -7,6 +7,5 @@ export const constants = {
         UPGRADE_USER_PERMISSION: 'upgradeUserPermission',
         SPEAK_REQUEST: 'speakRequest',
         SPEAK_ANSWER: 'speakAnswer'
-
     }
 }

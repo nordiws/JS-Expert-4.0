@@ -30,7 +30,7 @@ export default class SocketServer {
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
             })
-            res.end('hey there!!')
+            res.end('ClubHouse Clone Server')
         })
         this.#io = new Server(server, {
             cors: {
