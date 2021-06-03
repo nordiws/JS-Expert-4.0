@@ -17,9 +17,9 @@ export default class RoomController {
 
     async _initialize() {
         this._setupViewEvents()
+        this.roomService.init()
         this.socket = this._setupSocket()
         this.roomService.setCurrentPeer(await this._setupWebRTC())
-        this.roomService.init()
     }
 
     _setupViewEvents() {
@@ -89,7 +89,7 @@ export default class RoomController {
         return (call) => {
             console.log('onCallClose', call);
             const peerId = call.peer
-            this.roomService.disconnectedPeer({ peerId })
+            this.roomService.disconnectPeer({ peerId })
         }
     }
 
@@ -97,7 +97,7 @@ export default class RoomController {
         return (call, error) => {
             console.log('onCallError', call, error);
             const peerId = call.peer
-            this.roomService.disconnectedPeer({ peerId })
+            this.roomService.disconnectPeer({ peerId })
         }
     }
 
@@ -122,21 +122,15 @@ export default class RoomController {
         }
     }
 
-    onUserConnected() {
+    onUserProfileUpgrade() {
         return (data) => {
             const attendee = new Attendee(data)
-            console.log('User connected!', attendee)
-            this.view.addAttendeeOnGrid(attendee)
-            this.roomService.callNewUser(attendee)
-        }
-    }
-
-    onUserDisconnected() {
-        return (data) => {
-            const attendee = new Attendee(data)
-            console.log(`${attendee.username} disconnected!`)
-            this.view.removeItemFromGrid(attendee.id)
-            this.roomService.disconnectedPeer(attendee)
+            console.log('onUserProfileUpgrade', attendee)
+            if (attendee.isSpeaker) {
+                this.roomService.upgradeUserPermission(attendee)
+                this.view.addAttendeeOnGrid(attendee, true)
+            }
+            this.activateUserFeatures()
         }
     }
 
@@ -148,18 +142,23 @@ export default class RoomController {
             this.roomService.updateCurrentUserProfile(users)
             this.activateUserFeatures()
         }
-
     }
 
-    onUserProfileUpgrade() {
+    onUserDisconnected() {
         return (data) => {
             const attendee = new Attendee(data)
-            console.log('onUserProfileUpgrade', attendee)
-            if (attendee.isSpeaker) {
-                this.roomService.upgradeUserPermission(attendee)
-                this.view.addAttendeeOnGrid(attendee, true)
-            }
-            this.activateUserFeatures()
+            console.log(`${attendee.username} disconnected!`)
+            this.view.removeItemFromGrid(attendee.id)
+            this.roomService.disconnectPeer(attendee)
+        }
+    }
+
+    onUserConnected() {
+        return (data) => {
+            const attendee = new Attendee(data)
+            console.log('User connected!', attendee)
+            this.view.addAttendeeOnGrid(attendee)
+            this.roomService.callNewUser(attendee)
         }
     }
 

@@ -83,7 +83,7 @@ export default class RoomService {
         return { isCurrentId }
     }
 
-    disconnectedPeer({ peerId }) {
+    disconnectPeer({ peerId }) {
         if (!this.peers.has(peerId)) return
         this.peers.get(peerId).call.close()
         this.peers.delete(peerId)

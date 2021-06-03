@@ -14,7 +14,7 @@ export default class View {
     }
 
     static generateRoomLink({ id, topic }) {
-        return `/pages/room/index.html?id=${id}&topic=${topic}`
+        return `./../room/index.html?id=${id}&topic=${topic}`
     }
 
     static redirectToLogin() {
@@ -33,7 +33,7 @@ export default class View {
 
         btnCreateRoomWithTopic.addEventListener('click', () => {
             const topic = txtTopic.value
-            this.redirectToRoom(topic)
+            View.redirectToRoom(topic)
         })
     }
 

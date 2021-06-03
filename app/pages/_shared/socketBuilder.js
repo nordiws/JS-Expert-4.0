@@ -19,9 +19,7 @@ export default class SocketBuilder {
     }
 
     build() {
-        const socket = globalThis.io.connect(this.socketUrl, {
-            withCredentials: false
-        })
+        const socket = globalThis.io.connect(this.socketUrl, { withCredentials: false })
 
         socket.on('connect', () => console.log('connected!'))
         socket.on(constants.event.USER_CONNECTED, this.onUserConnected)

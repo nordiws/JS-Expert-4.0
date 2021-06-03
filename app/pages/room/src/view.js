@@ -73,7 +73,6 @@ export default class View {
                 console.log('erro to play', e);
             }
         })
-        return audio
     }
 
     static renderAudioElement({ callerId, stream, isCurrentId }) {
@@ -86,19 +85,15 @@ export default class View {
     static showUserFeatures(isSpeaker) {
         // attendee
         if (!isSpeaker) {
+            btnClap.classList.remove('hidden')
             btnMicrophone.classList.add('hidden')
             btnClipBoard.classList.add('hidden')
-            btnClap.classList.remove('hidden')
             return
         }
         // speaker
         btnClap.classList.add('hidden')
         btnMicrophone.classList.remove('hidden')
         btnClipBoard.classList.remove('hidden')
-    }
-
-    static configureClapButton(command) {
-        btnClap.addEventListener('click', View._onClapClick(command))
     }
 
     static _onClapClick(command) {
@@ -115,19 +110,12 @@ export default class View {
         }
     }
 
-    static configureLeaveButton() {
-        btnLeave.addEventListener('click', () => View._redirectToLobby())
+    static configureClapButton(command) {
+        btnClap.addEventListener('click', View._onClapClick(command))
     }
 
     static _redirectToLobby() {
         window.location = constants.pages.lobby
-    }
-
-    static configureMicrophoneButton(command) {
-        btnMicrophone.addEventListener('click', () => {
-            View._toggleMicrophoneIcon()
-            command()
-        })
     }
 
     static _toggleMicrophoneIcon() {
@@ -143,5 +131,16 @@ export default class View {
         }
         icon.classList.add(inactiveMicClass)
         icon.classList.remove(activeMicClass)
+    }
+
+    static configureLeaveButton() {
+        btnLeave.addEventListener('click', () => View._redirectToLobby())
+    }
+
+    static configureMicrophoneButton(command) {
+        btnMicrophone.addEventListener('click', () => {
+            View._toggleMicrophoneIcon()
+            command()
+        })
     }
 }

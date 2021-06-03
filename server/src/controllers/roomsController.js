@@ -49,7 +49,8 @@ export default class RoomsController {
     }
 
     notifyRoomSubscribers(rooms) {
-        this.roomsPubSub.emit(constants.event.LOBBY_UPDATED, [...rooms.values()])
+        const event = constants.event.LOBBY_UPDATED
+        this.roomsPubSub.emit(event, [...rooms.values()])
     }
 
     onNewConnection(socket) {
@@ -74,6 +75,7 @@ export default class RoomsController {
 
         const room = this.rooms.get(roomId)
         const toBeRemoved = [...room.users].find(({ id }) => id === userId)
+
         // remove user from room
         room.users.delete(toBeRemoved)
 

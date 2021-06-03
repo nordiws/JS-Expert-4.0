@@ -42,12 +42,12 @@
   <div id="topic-modal" class="topic-modal">
     <div class="topic-modal__content">
       <div class="topic-modal__content__form">
-        <h1>Adicione um tópico</h1>
+        <h1>Add a topic</h1>
         <input type="text" name="topic" id="txtTopic">
       </div>
 
       <div class="topic-modal__content__buttons">
-        <button onclick="toggleModal('topic-modal', false)">Cancelar</button>
+        <button onclick="toggleModal('topic-modal', false)">Cancel</button>
         <button id="btnCreateRoomWithTopic">Ok</button>
       </div>
     </div>
@@ -56,11 +56,11 @@
   <!-- Modal: Create room -->
   <div id="create-room-modal" class="create-room-modal">
     <div class="create-room-modal__content">
-      <p class="create-room-modal__content__btn" onclick="toggleModal('topic-modal', open)">+ Add um tópico</p>
+      <p class="create-room-modal__content__btn" onclick="toggleModal('topic-modal', open)">+ Add a topic</p>
       <div class="create-room-modal__content__rooms">
         <div class="create-room-modal__content__rooms__option">
           <img src="../../assets/icons/worldwide.svg" alt="Public">
-          <span>Aberto</span>
+          <span>Open</span>
         </div>
         <div class="create-room-modal__content__rooms__option">
           <img src="../../assets/icons/team.svg" alt="Public">
@@ -68,13 +68,13 @@
         </div>
         <div class="create-room-modal__content__rooms__option">
           <img src="../../assets/icons/lock.svg" alt="Public">
-          <span>Fechado</span>
+          <span>Closed</span>
         </div>
       </div>
-      <h1 class="create-room-modal__content__description">Inicie uma sala <span>aberta para todos</span></h1>
+      <h1 class="create-room-modal__content__description">Start a room <span>open for everyone</span></h1>
       <button class="btn-start-room" id="btnCreateRoomWithoutTopic">
         <span role=" img">🎉</span>
-        Vamos lá
+        Let´s Go!
       </button>
     </div>
   </div>

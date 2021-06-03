@@ -12,8 +12,8 @@ export default class LobbyController {
     }
 
     async _init() {
-        this.socket = this._setupSocket()
         this._setupViewEvents()
+        this.socket = this._setupSocket()
     }
 
     _setupViewEvents() {
